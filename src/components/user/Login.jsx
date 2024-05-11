@@ -19,22 +19,27 @@ const Login = () => {
             [e.target.name]:e.target.value
         })
     }
-    const onSubmit = (e) =>{
+    const onSubmit = (e)=> {
         e.preventDefault();
-        if(email === "" || pass === ""){
-            alert('이메일과 비밀번호를 입력하세요.')
-        }else {
+        if(email==="" || pass===""){
+            alert("이메일 또는 비밀번호를 입력하세요!");
+        }else{
             setLoading(true);
             signInWithEmailAndPassword(auth, email, pass)
             .then(success=>{
+                sessionStorage.setItem("email", email);
+                sessionStorage.setItem("uid", success.user.uid);
+                if(sessionStorage.getItem('target')){
+                    navi(sessionStorage.getItem('target'));
+                }else{
+                    navi('/');
+                }
                 setLoading(false);
-                sessionStorage.setItem('email', email);
-                navi('/')
             })
-            .catch(error=>{
-                alert('에러' + error.message)
+            .catch(err=>{
+                alert(`로그인에러:${err.message}`);
                 setLoading(false);
-            })
+            });
         }
     }
     if(loading) return <h1 className='my-5'>로딩중입니다.</h1>
