@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import {app} from '../../firebaseini'
 import { getFirestore, doc, getDoc, deleteDoc } from 'firebase/firestore'
 import { Button, Card, Row, Col, Form } from 'react-bootstrap'
+import Coments from './Coments'
 
 const ReadPage = () => {
   const navi = useNavigate();
@@ -58,6 +59,7 @@ const ReadPage = () => {
             Posted on {post.date} by {post.email}
           </Card.Footer>
         </Card>
+        <Coments/>
       </Col>
     </Row>
   )
